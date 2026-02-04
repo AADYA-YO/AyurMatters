@@ -1,0 +1,625 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    line-height: 1.6;
+    background-color: #f0f8f0;
+    color: #2d5016;
+    padding: 15px;
+}
+
+/* Container */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+/* Headings */
+h1 {
+    font-size: 32px;
+    color: #2d5016;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 26px;
+    color: #3d7018;
+    margin-bottom: 15px;
+}
+
+/* Links */
+a {
+    color: #4a9025;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Accessibility: Focus state for links */
+a:focus {
+    outline: 3px solid #4a9025;
+    outline-offset: 2px;
+}
+
+.back-link {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+/* Forms */
+form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 22px;
+    font-weight: bold;
+    color: #2d5016;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+textarea,
+select {
+    display: block;
+    width: 100%;
+    font-size: 20px;
+    padding: 15px;
+    border: 2px solid #8bc34a;
+    border-radius: 6px;
+    background-color: #fafff5;
+    color: #2d5016;
+    min-height: 50px;
+    touch-action: manipulation;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #4a9025;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(74, 144, 37, 0.2);
+}
+
+.btn:focus {
+    outline: 3px solid #4a9025;
+    outline-offset: 2px;
+}
+
+/* Accessibility: Improve textarea contrast for better readability */
+textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    line-height: 1.7;
+}
+
+select {
+    cursor: pointer;
+}
+
+/* Buttons */
+.btn {
+    display: block;
+    width: 100%;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-height: 60px;
+    touch-action: manipulation;
+}
+
+.btn-primary {
+    background-color: #4a9025;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #3d7018;
+}
+
+.btn-success {
+    background-color: #2d5016;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #1f3810;
+}
+
+/* Accessibility: Disabled button styles */
+.btn:disabled,
+.btn[disabled] {
+    background-color: #c8c8c8;
+    color: #888888;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.btn:disabled:hover,
+.btn[disabled]:hover {
+    background-color: #c8c8c8;
+}
+
+/* Accessibility: Active state for better touch feedback */
+.btn:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+/* Homepage Styles */
+.homepage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    text-align: center;
+}
+
+.homepage h1 {
+    font-size: 48px;
+    margin-bottom: 50px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.button-container .btn {
+    text-decoration: none;
+}
+
+/* Card Sections */
+.card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #c8e6c9;
+}
+
+.card h2 {
+    border-bottom: 3px solid #8bc34a;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Results and Messages */
+.results-container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f0f8f0;
+    border-radius: 6px;
+    display: none;
+}
+
+.results-container.active {
+    display: block;
+}
+
+.result-item {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #4a9025;
+    cursor: pointer;
+    min-height: 80px;
+    touch-action: manipulation;
+}
+
+/* Accessibility: Better hover feedback for clickable items */
+.result-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-left-width: 6px;
+}
+
+/* Accessibility: Active state for touch feedback */
+.result-item:active {
+    background-color: #f9f9f9;
+}
+
+.result-item h3 {
+    font-size: 24px;
+    color: #2d5016;
+    margin-bottom: 10px;
+}
+
+.result-item p {
+    font-size: 18px;
+    color: #3d7018;
+    margin: 5px 0;
+}
+
+.message-container {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 6px;
+    font-size: 20px;
+    font-weight: bold;
+    display: none;
+}
+
+.message-container.active {
+    display: block;
+}
+
+/* Accessibility: Enhanced success message visibility */
+.message-container.success {
+    background-color: #c8e6c9;
+    color: #2d5016;
+    border: 2px solid #4a9025;
+    border-left-width: 6px;
+}
+
+/* Accessibility: Enhanced error message visibility */
+.message-container.error {
+    background-color: #ffccbc;
+    color: #c62828;
+    border: 2px solid #ff5722;
+    border-left-width: 6px;
+}
+
+/* Disease Details */
+.disease-detail {
+    background-color: white;
+    padding: 25px;
+    border-radius: 6px;
+}
+
+.disease-detail h3 {
+    font-size: 28px;
+    color: #2d5016;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #8bc34a;
+    padding-bottom: 10px;
+}
+
+.detail-section {
+    margin-bottom: 20px;
+}
+
+.detail-section h4 {
+    font-size: 22px;
+    color: #3d7018;
+    margin-bottom: 10px;
+}
+
+.detail-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.detail-section li {
+    padding: 10px 0;
+    padding-left: 30px;
+    position: relative;
+    font-size: 20px;
+    color: #2d5016;
+}
+
+.detail-section li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #4a9025;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.detail-section p {
+    font-size: 20px;
+    color: #2d5016;
+}
+
+/* Loading State */
+.loading {
+    text-align: center;
+    padding: 20px;
+    font-size: 22px;
+    color: #3d7018;
+}
+
+/* Accessibility: Subtle indicator for loading state */
+.loading::after {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-left: 10px;
+    background-color: #3d7018;
+    border-radius: 50%;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 30px;
+    color: #3d7018;
+    font-size: 20px;
+}
+
+/* Add Item Container */
+.add-item-container {
+    margin-bottom: 15px;
+}
+
+.add-item-container input {
+    margin-bottom: 10px;
+}
+
+/* Tags Container (for symptoms) */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+    min-height: 40px;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    background-color: #c8e6c9;
+    color: #2d5016;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 18px;
+}
+
+.tag .remove-btn {
+    margin-left: 10px;
+    background: none;
+    border: none;
+    color: #c62828;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+    min-width: 30px;
+    min-height: 30px;
+}
+
+.tag .remove-btn:hover {
+    color: #b71c1c;
+}
+
+/* Accessibility: Focus state for tag remove buttons */
+.tag .remove-btn:focus {
+    outline: 2px solid #c62828;
+    outline-offset: 2px;
+    border-radius: 3px;
+}
+
+/* Add Medicine Container */
+.add-medicine-container {
+    margin-bottom: 15px;
+}
+
+.add-medicine-container input,
+.add-medicine-container textarea {
+    margin-bottom: 10px;
+}
+
+/* Medicines List */
+.medicines-list {
+    margin-top: 15px;
+}
+
+.medicine-row {
+    background-color: #f0f8f0;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    border-left: 4px solid #8bc34a;
+}
+
+.medicine-row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.medicine-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2d5016;
+}
+
+.medicine-row .remove-btn {
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    min-height: 44px;
+    min-width: 80px;
+}
+
+.medicine-row .remove-btn:hover {
+    background-color: #c62828;
+}
+
+/* Accessibility: Focus state for medicine remove buttons */
+.medicine-row .remove-btn:focus {
+    outline: 3px solid #ff5722;
+    outline-offset: 2px;
+}
+
+.medicine-usage {
+    font-size: 18px;
+    color: #3d7018;
+    line-height: 1.5;
+}
+
+/* Search Container */
+.search-container {
+    margin-bottom: 30px;
+}
+
+/* Radio Group */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: normal;
+    cursor: pointer;
+    padding: 12px;
+    background-color: #fafff5;
+    border: 2px solid #c8e6c9;
+    border-radius: 6px;
+}
+
+.radio-label:hover {
+    background-color: #f0f8f0;
+}
+
+/* Accessibility: Better focus indicator for radio buttons */
+.radio-label:has(input[type="radio"]:focus) {
+    outline: 3px solid #4a9025;
+    outline-offset: 2px;
+}
+
+.radio-label input[type="radio"] {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.radio-label input[type="radio"]:checked {
+    accent-color: #4a9025;
+}
+
+/* Detail List */
+.detail-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.detail-list li {
+    padding: 10px 0;
+    padding-left: 30px;
+    position: relative;
+    font-size: 20px;
+    color: #2d5016;
+    border-bottom: 1px solid #e8f5e9;
+}
+
+.detail-list li:last-child {
+    border-bottom: none;
+}
+
+.detail-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #4a9025;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+/* Medicines Detail Section */
+.medicines-detail {
+    margin-top: 15px;
+}
+
+.medicine-detail-item {
+    background-color: #f0f8f0;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    border-left: 4px solid #8bc34a;
+}
+
+.medicine-detail-item h3 {
+    font-size: 22px;
+    color: #2d5016;
+    margin-bottom: 10px;
+}
+
+.medicine-detail-item .usage-text {
+    font-size: 18px;
+    color: #3d7018;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Mobile Responsive (Mobile-First Approach) */
+@media (min-width: 768px) {
+    body {
+        font-size: 18px;
+        padding: 20px;
+    }
+
+    .container {
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 36px;
+    }
+
+    .homepage h1 {
+        font-size: 56px;
+    }
+
+    .button-container {
+        max-width: 450px;
+    }
+    
+    .btn {
+        font-size: 22px;
+    }
+    
+    .radio-group {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .radio-label {
+        flex: 1;
+        min-width: 150px;
+    }
+}
