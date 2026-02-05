@@ -1,5 +1,6 @@
 // API Base URL
-const API_BASE_URL = 'http://localhost:9090/api';
+// const API_BASE_URL = 'http://localhost:9090/api';
+const BASE_URL = "https://ayurmatters-backend.onrender.com/";
 
 // DOM Elements
 const diseaseContent = document.getElementById('diseaseContent');
