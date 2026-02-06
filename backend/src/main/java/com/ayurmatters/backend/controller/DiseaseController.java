@@ -12,12 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(
-        origins = {
-                "https://ayurmattersforyou.netlify.app",
-                "http://localhost:8080"
-        }
-)
 @RestController
 @RequestMapping("/api/diseases")
 public class DiseaseController {

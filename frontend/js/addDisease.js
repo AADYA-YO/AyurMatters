@@ -1,5 +1,6 @@
 // API Configuration
-const API_BASE_URL = 'http://localhost:9090/api';
+// const API_BASE_URL = 'http://localhost:9090/api';
+const BASE_URL = "https://ayurmatters-backend.onrender.com";
 
 // Arrays to store symptoms and medicines
 let symptoms = [];
@@ -24,13 +25,13 @@ const formMessage = document.getElementById('formMessage');
 // Add Symptom
 addSymptomBtn.addEventListener('click', () => {
     const symptom = normalizeText(symptomInput.value);
-    
+
     if (!symptom) {
         showMessage('⚠️ Please enter a symptom before adding', 'error');
         symptomInput.focus();
         return;
     }
-    
+
     // Check for duplicate (case-insensitive)
     const isDuplicate = symptoms.some(s => s.toLowerCase() === symptom.toLowerCase());
     if (isDuplicate) {
@@ -38,7 +39,7 @@ addSymptomBtn.addEventListener('click', () => {
         symptomInput.focus();
         return;
     }
-    
+
     symptoms.push(symptom);
     symptomInput.value = '';
     renderSymptoms();
@@ -60,7 +61,7 @@ function renderSymptoms() {
         symptomsList.innerHTML = '<p style="color: #999; font-size: 18px;">No symptoms added yet</p>';
         return;
     }
-    
+
     symptomsList.innerHTML = symptoms.map((symptom, index) => `
         <div class="tag">
             ${escapeHtml(symptom)}
@@ -79,12 +80,12 @@ function removeSymptom(index) {
 addMedicineBtn.addEventListener('click', () => {
     const medicineName = normalizeText(medicineNameInput.value);
     const medicineUsage = normalizeText(medicineUsageInput.value);
-    
+
     if (!medicineName) {
         showMessage('⚠️ Please enter a medicine name before adding', 'error');
         return;
     }
-    
+
     // Check for duplicate medicine
     const isDuplicate = medicines.some(med => med.name.toLowerCase() === medicineName.toLowerCase());
     if (isDuplicate) {
@@ -92,12 +93,12 @@ addMedicineBtn.addEventListener('click', () => {
         medicineNameInput.focus();
         return;
     }
-    
+
     medicines.push({
         name: medicineName,
         usage: medicineUsage
     });
-    
+
     medicineNameInput.value = '';
     medicineUsageInput.value = '';
     renderMedicines();
@@ -119,7 +120,7 @@ function renderMedicines() {
         medicinesList.innerHTML = '<p style="color: #999; font-size: 18px;">No medicines added yet</p>';
         return;
     }
-    
+
     medicinesList.innerHTML = medicines.map((medicine, index) => `
         <div class="medicine-row">
             <div class="medicine-row-header">
@@ -140,34 +141,34 @@ function removeMedicine(index) {
 // Form Submission
 diseaseForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     // Guard against double submission
     if (isSubmitting) {
         return;
     }
-    
+
     const diseaseName = normalizeText(document.getElementById('diseaseName').value);
     const description = normalizeText(document.getElementById('description').value);
     const ayurvedicNotes = normalizeText(document.getElementById('ayurvedicNotes').value);
     const generalNotes = normalizeText(document.getElementById('generalNotes').value);
-    
+
     if (!diseaseName) {
         showMessage('⚠️ Disease name is required. Please enter a name.', 'error');
         document.getElementById('diseaseName').focus();
         return;
     }
-    
+
     if (symptoms.length === 0 && medicines.length === 0) {
         showMessage('⚠️ Please add at least one symptom or medicine', 'error');
         return;
     }
-    
+
     // Build medicines object (key-value pairs)
     const medicinesObject = {};
     medicines.forEach(med => {
         medicinesObject[med.name] = med.usage || '';
     });
-    
+
     const diseaseData = {
         diseaseName: diseaseName,
         description: description,
@@ -176,22 +177,22 @@ diseaseForm.addEventListener('submit', async (e) => {
         symptoms: symptoms,
         medicines: medicinesObject
     };
-    
+
     // Disable submit button and set guard
     const submitBtn = diseaseForm.querySelector('button[type="submit"]');
     isSubmitting = true;
     submitBtn.disabled = true;
     submitBtn.textContent = 'Saving...';
-    
+
     try {
-        const response = await fetch(`${API_BASE_URL}/diseases`, {
+        const response = await fetch(`${BASE_URL}/diseases`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(diseaseData)
         });
-        
+
         if (!response.ok) {
             // Try to get error message from backend
             let errorMessage = 'Failed to save disease';
@@ -205,20 +206,20 @@ diseaseForm.addEventListener('submit', async (e) => {
             }
             throw new Error(errorMessage);
         }
-        
+
         const result = await response.json();
         console.log('Disease saved:', result);
         showMessage('✅ Success! Disease record has been saved.', 'success');
-        
+
         // Reset form after 2 seconds
         setTimeout(() => {
             resetForm();
         }, 2000);
-        
+
     } catch (error) {
         console.error('Error saving disease:', error);
         const errorMsg = error.message || 'Unable to save disease';
-        showMessage(`❌ ${errorMsg}. Please check if the backend server is running at ${API_BASE_URL.replace('/api', '')}`, 'error');
+        showMessage(`❌ ${errorMsg}. Please check if the backend server is running at ${BASE_URL.replace('/api', '')}`, 'error');
     } finally {
         // Re-enable submit button and clear guard
         isSubmitting = false;
@@ -241,7 +242,7 @@ function resetForm() {
 function showMessage(message, type) {
     formMessage.className = `message-container active ${type}`;
     formMessage.textContent = message;
-    
+
     setTimeout(() => {
         formMessage.classList.remove('active');
     }, 5000);
