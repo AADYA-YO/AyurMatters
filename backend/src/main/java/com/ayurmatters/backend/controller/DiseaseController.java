@@ -9,11 +9,14 @@ import com.ayurmatters.backend.service.DiseaseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/diseases")
+@CrossOrigin(origins = "*") // safe for demo & Netlify
 public class DiseaseController {
 
     private final DiseaseService diseaseService;
@@ -22,11 +25,10 @@ public class DiseaseController {
         this.diseaseService = diseaseService;
     }
 
-    // CREATE / UPDATE DISEASE
     @PostMapping
     public ResponseEntity<DiseaseResponseDTO> createOrUpdateDisease(
-            @RequestBody DiseaseRequestDTO request
-    ) {
+            @RequestBody DiseaseRequestDTO request) {
+
         Disease disease = diseaseService.saveOrUpdateDisease(
                 request.getDiseaseName(),
                 request.getSymptoms(),
@@ -39,20 +41,17 @@ public class DiseaseController {
         return ResponseEntity.ok(convertToResponseDTO(disease));
     }
 
-    // GET DISEASE BY ID
     @GetMapping("/{id}")
     public ResponseEntity<DiseaseResponseDTO> getDiseaseById(@PathVariable Long id) {
         return diseaseService.findById(id)
-                .map(disease -> ResponseEntity.ok(convertToResponseDTO(disease)))
+                .map(d -> ResponseEntity.ok(convertToResponseDTO(d)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // SEARCH (disease / symptom / medicine)
     @GetMapping("/search")
     public ResponseEntity<List<DiseaseResponseDTO>> searchDiseases(
             @RequestParam String type,
-            @RequestParam String q
-    ) {
+            @RequestParam String q) {
 
         List<Disease> diseases;
 
@@ -70,33 +69,44 @@ public class DiseaseController {
                 return ResponseEntity.badRequest().build();
         }
 
-        List<DiseaseResponseDTO> response = diseases.stream()
-                .map(this::convertToResponseDTO)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(
+                diseases.stream()
+                        .map(this::convertToResponseDTO)
+                        .collect(Collectors.toList())
+        );
     }
 
-    // DTO CONVERTER
+    // ✅ FULLY NULL-SAFE CONVERTER
     private DiseaseResponseDTO convertToResponseDTO(Disease disease) {
+
         DiseaseResponseDTO response = new DiseaseResponseDTO();
+
         response.setId(disease.getId());
         response.setDiseaseName(disease.getName());
         response.setDescription(disease.getDescription());
         response.setAyurvedicNotes(disease.getAyurvedicNotes());
         response.setGeneralNotes(disease.getGeneralNotes());
-        response.setSymptoms(
-                disease.getSymptoms()
-                        .stream()
-                        .map(Symptom::getName)
-                        .collect(Collectors.toSet())
-        );
-        response.setMedicines(
-                disease.getMedicines()
-                        .stream()
-                        .map(Medicine::getName)
-                        .collect(Collectors.toSet())
-        );
+
+        // 🔒 NULL-SAFE symptoms
+        Set<String> symptoms = (disease.getSymptoms() == null)
+                ? Collections.emptySet()
+                : disease.getSymptoms()
+                .stream()
+                .map(Symptom::getName)
+                .collect(Collectors.toSet());
+
+        response.setSymptoms(symptoms);
+
+        // 🔒 NULL-SAFE medicines
+        Set<String> medicines = (disease.getMedicines() == null)
+                ? Collections.emptySet()
+                : disease.getMedicines()
+                .stream()
+                .map(Medicine::getName)
+                .collect(Collectors.toSet());
+
+        response.setMedicines(medicines);
+
         return response;
     }
 }
