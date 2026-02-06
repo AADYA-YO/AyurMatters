@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin(
+        origins = {
+                "https://ayurmattersforyou.netlify.app",
+                "http://localhost:8080"
+        }
+)
 @RestController
 @RequestMapping("/api/diseases")
 public class DiseaseController {
@@ -22,8 +28,11 @@ public class DiseaseController {
         this.diseaseService = diseaseService;
     }
 
+    // CREATE / UPDATE DISEASE
     @PostMapping
-    public ResponseEntity<DiseaseResponseDTO> createOrUpdateDisease(@RequestBody DiseaseRequestDTO request) {
+    public ResponseEntity<DiseaseResponseDTO> createOrUpdateDisease(
+            @RequestBody DiseaseRequestDTO request
+    ) {
         Disease disease = diseaseService.saveOrUpdateDisease(
                 request.getDiseaseName(),
                 request.getSymptoms(),
@@ -36,6 +45,7 @@ public class DiseaseController {
         return ResponseEntity.ok(convertToResponseDTO(disease));
     }
 
+    // GET DISEASE BY ID
     @GetMapping("/{id}")
     public ResponseEntity<DiseaseResponseDTO> getDiseaseById(@PathVariable Long id) {
         return diseaseService.findById(id)
@@ -43,10 +53,12 @@ public class DiseaseController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // SEARCH (disease / symptom / medicine)
     @GetMapping("/search")
     public ResponseEntity<List<DiseaseResponseDTO>> searchDiseases(
             @RequestParam String type,
-            @RequestParam String q) {
+            @RequestParam String q
+    ) {
 
         List<Disease> diseases;
 
@@ -71,6 +83,7 @@ public class DiseaseController {
         return ResponseEntity.ok(response);
     }
 
+    // DTO CONVERTER
     private DiseaseResponseDTO convertToResponseDTO(Disease disease) {
         DiseaseResponseDTO response = new DiseaseResponseDTO();
         response.setId(disease.getId());
@@ -79,12 +92,14 @@ public class DiseaseController {
         response.setAyurvedicNotes(disease.getAyurvedicNotes());
         response.setGeneralNotes(disease.getGeneralNotes());
         response.setSymptoms(
-                disease.getSymptoms().stream()
+                disease.getSymptoms()
+                        .stream()
                         .map(Symptom::getName)
                         .collect(Collectors.toSet())
         );
         response.setMedicines(
-                disease.getMedicines().stream()
+                disease.getMedicines()
+                        .stream()
                         .map(Medicine::getName)
                         .collect(Collectors.toSet())
         );
