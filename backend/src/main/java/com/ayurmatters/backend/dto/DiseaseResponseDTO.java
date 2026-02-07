@@ -1,18 +1,16 @@
 package com.ayurmatters.backend.dto;
 
-import java.util.List;
+import java.util.Set;
 
 public class DiseaseResponseDTO {
 
     private Long id;
     private String diseaseName;
-    private List<String> symptoms;
-    private List<String> medicines;
+    private Set<String> symptoms;
+    private Set<String> medicines;
     private String description;
     private String ayurvedicNotes;
     private String generalNotes;
-
-    public DiseaseResponseDTO() {}
 
     public Long getId() {
         return id;
@@ -30,19 +28,19 @@ public class DiseaseResponseDTO {
         this.diseaseName = diseaseName;
     }
 
-    public List<String> getSymptoms() {
+    public Set<String> getSymptoms() {
         return symptoms;
     }
 
-    public void setSymptoms(List<String> symptoms) {
+    public void setSymptoms(Set<String> symptoms) {
         this.symptoms = symptoms;
     }
 
-    public List<String> getMedicines() {
+    public Set<String> getMedicines() {
         return medicines;
     }
 
-    public void setMedicines(List<String> medicines) {
+    public void setMedicines(Set<String> medicines) {
         this.medicines = medicines;
     }
 
