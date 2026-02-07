@@ -1,26 +1,18 @@
 package com.ayurmatters.backend.dto;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 public class DiseaseResponseDTO {
 
     private Long id;
     private String diseaseName;
-
-    // ✅ Initialize to empty sets (never null)
-    private Set<String> symptoms = new HashSet<>();
-    private Set<String> medicines = new HashSet<>();
-
+    private List<String> symptoms;
+    private List<String> medicines;
     private String description;
     private String ayurvedicNotes;
     private String generalNotes;
 
-    public DiseaseResponseDTO() {
-        // default constructor
-    }
-
-    // ---------- Getters & Setters ----------
+    public DiseaseResponseDTO() {}
 
     public Long getId() {
         return id;
@@ -38,22 +30,20 @@ public class DiseaseResponseDTO {
         this.diseaseName = diseaseName;
     }
 
-    public Set<String> getSymptoms() {
+    public List<String> getSymptoms() {
         return symptoms;
     }
 
-    // ✅ Null-safe setter
-    public void setSymptoms(Set<String> symptoms) {
-        this.symptoms = (symptoms == null) ? new HashSet<>() : symptoms;
+    public void setSymptoms(List<String> symptoms) {
+        this.symptoms = symptoms;
     }
 
-    public Set<String> getMedicines() {
+    public List<String> getMedicines() {
         return medicines;
     }
 
-    // ✅ Null-safe setter
-    public void setMedicines(Set<String> medicines) {
-        this.medicines = (medicines == null) ? new HashSet<>() : medicines;
+    public void setMedicines(List<String> medicines) {
+        this.medicines = medicines;
     }
 
     public String getDescription() {

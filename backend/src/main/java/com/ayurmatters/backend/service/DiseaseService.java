@@ -4,7 +4,6 @@ import com.ayurmatters.backend.entity.Disease;
 import com.ayurmatters.backend.repository.DiseaseRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -17,51 +16,31 @@ public class DiseaseService {
     }
 
     public Disease saveOrUpdateDisease(
-            String diseaseName,
+            String name,
             List<String> symptoms,
-            Object medicines,
+            List<String> medicines,
             String description,
             String ayurvedicNotes,
             String generalNotes) {
 
-        return diseaseRepository.save(
-                Disease.builder()
-                        .name(diseaseName)
-                        .description(description)
-                        .ayurvedicNotes(ayurvedicNotes)
-                        .generalNotes(generalNotes)
-                        .build()
-        );
+        Disease disease = new Disease();
+        disease.setName(name);
+        disease.setDescription(description);
+        disease.setAyurvedicNotes(ayurvedicNotes);
+        disease.setGeneralNotes(generalNotes);
+
+        disease.setSymptomsFromNames(symptoms);
+        disease.setMedicinesFromNames(medicines);
+
+        return diseaseRepository.save(disease);
     }
 
-    public List<Disease> searchByDiseaseName(String q) {
-        try {
-            return diseaseRepository.searchByDiseaseName(q);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
-    }
-
-    public List<Disease> searchBySymptomName(String q) {
-        try {
-            return diseaseRepository.searchBySymptomName(q);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
-    }
-
-    public List<Disease> searchByMedicineName(String q) {
-        try {
-            return diseaseRepository.searchByMedicineName(q);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
-    }
-
-    public java.util.Optional<Disease> findById(Long id) {
-        return diseaseRepository.findById(id);
+    public List<Disease> search(String type, String q) {
+        return switch (type.toLowerCase()) {
+            case "disease" -> diseaseRepository.findByNameContainingIgnoreCase(q);
+            case "symptom" -> diseaseRepository.findBySymptomName(q);
+            case "medicine" -> diseaseRepository.findByMedicineName(q);
+            default -> List.of();
+        };
     }
 }
