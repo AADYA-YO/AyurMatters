@@ -1,3 +1,8 @@
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/diseases")
 public class DiseaseController {

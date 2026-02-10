@@ -1,3 +1,12 @@
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import com.ayurmatters.backend.entity.Disease;
+import com.ayurmatters.backend.entity.Symptom;
+import com.ayurmatters.backend.entity.Medicine;
+
 @Service
 public class DiseaseService {
 
