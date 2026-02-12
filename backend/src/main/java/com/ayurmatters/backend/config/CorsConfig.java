@@ -1,7 +1,8 @@
 package com.ayurmatters.backend.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
@@ -10,11 +11,11 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
                 .allowedOrigins(
-                        "http://localhost:3000",
-                        "http://localhost:5173",
-                        "https://ayurmattersforyou.netlify.app"
+                        "http://localhost:5500",   // local testing
+                        "https://ayurmattersforyou.netlify.app/" // production
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*");
+                .allowedHeaders("*")
+                .allowCredentials(false);  // keep false unless using cookies
     }
 }
