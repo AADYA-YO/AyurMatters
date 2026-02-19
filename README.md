@@ -6,6 +6,13 @@ A comprehensive Ayurvedic disease information management system that helps users
 
 AyurMatters is a full-stack web application designed to manage and search Ayurvedic medical information. The application allows users to add diseases along with their associated symptoms and medicines, and provides powerful search capabilities to find diseases by name, symptom, or medicine.
 
+## 🌐 Live Demo
+
+The application is deployed and accessible online:
+- **Frontend**: Hosted on Netlify
+- **Backend API**: Hosted on Render
+- **Database**: Neon Serverless Postgres
+
 ## ✨ Features
 
 - **Disease Management**: Add and update diseases with detailed information
@@ -24,13 +31,15 @@ AyurMatters is a full-stack web application designed to manage and search Ayurve
 - **Java 17**
 - **Spring Boot 3.5.10**
 - **Spring Data JPA** - Database operations
-- **PostgreSQL** - Primary database
+- **Neon Serverless Postgres** - Cloud database
 - **Maven** - Build and dependency management
+- **Render** - Backend hosting platform
 
 ### Frontend
 - **HTML5**
 - **CSS3**
 - **JavaScript (Vanilla)**
+- **Netlify** - Frontend hosting platform
 
 ## 📁 Project Structure
 
@@ -71,7 +80,7 @@ AyurMatters/
 
 - Java 17 or higher
 - Maven 3.6+
-- PostgreSQL 12+
+- PostgreSQL 12+ (or Neon account for cloud database)
 - Modern web browser
 
 ### Backend Setup
@@ -96,7 +105,13 @@ AyurMatters/
    FRONTEND_URL=http://localhost:8080
    ```
 
-3. **Create PostgreSQL Database**
+   **For Neon Database (Cloud):**
+   - Sign up at [neon.tech](https://neon.tech)
+   - Create a new project
+   - Copy the connection string and use it as `DB_URL`
+   - Format: `jdbc:postgresql://[host]/[database]?sslmode=require`
+
+3. **Create PostgreSQL Database** (Local only)
    ```sql
    CREATE DATABASE ayurmatters;
    ```
@@ -166,6 +181,51 @@ GET /api/diseases/search?type=medicine&q=tulsi
 - **medicines** - Medicine catalog
 - **disease_symptoms** - Many-to-many relationship
 - **disease_medicines** - Many-to-many relationship
+
+## ☁️ Deployment
+
+### Backend Deployment (Render)
+
+1. **Create a new Web Service on Render**
+   - Connect your GitHub repository
+   - Select the backend directory
+   - Build Command: `cd "AyurMatters backend" && mvn clean install`
+   - Start Command: `java -jar target/AyurMatters-0.0.1-SNAPSHOT.jar`
+
+2. **Set Environment Variables on Render**
+   ```
+   SPRING_APPLICATION_NAME=AyurMatters
+   PORT=9090
+   DB_URL=<your-neon-connection-string>
+   DB_USERNAME=<neon-username>
+   DB_PASSWORD=<neon-password>
+   HIBERNATE_DDL_AUTO=update
+   HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+   FRONTEND_URL=<your-netlify-url>
+   ```
+
+### Frontend Deployment (Netlify)
+
+1. **Deploy to Netlify**
+   - Connect your GitHub repository
+   - Set publish directory: `AyurMatters frontend`
+   - Deploy settings: No build command needed (static site)
+
+2. **Update API URLs**
+   - Update the backend API URL in your frontend JavaScript files to point to your Render backend URL
+
+### Database Setup (Neon)
+
+1. **Create Neon Database**
+   - Sign up at [neon.tech](https://neon.tech)
+   - Create a new project
+   - Create a database named `ayurmatters`
+   - Copy the connection string
+
+2. **Configure Connection**
+   - Use the Neon connection string in your environment variables
+   - Neon provides serverless, auto-scaling PostgreSQL
+   - Includes connection pooling and automatic backups
 
 ## 🐳 Docker Support
 
