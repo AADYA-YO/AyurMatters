@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Disease - Ayur Matters</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <h1>Add New Disease</h1>
+
+        <form id="diseaseForm">
+            <!-- Basic Information -->
+            <div class="form-group">
+                <label for="diseaseName">Disease Name *</label>
+                <input type="text" id="diseaseName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="generalNotes">General Notes</label>
+                <textarea id="generalNotes" rows="4"></textarea>
+            </div>
+
+            <!-- Symptoms Section -->
+            <div class="form-group">
+                <label>Symptoms</label>
+                <div class="add-item-container">
+                    <input type="text" id="symptomInput" placeholder="Enter a symptom">
+                    <button type="button" class="btn btn-primary" id="addSymptomBtn">Add Symptom</button>
+                </div>
+                <div id="symptomsList" class="tags-container"></div>
+            </div>
+
+            <!-- Medicines Section -->
+            <div class="form-group">
+                <label>Medicines</label>
+                <div class="add-medicine-container">
+                    <input type="text" id="medicineNameInput" placeholder="Medicine name">
+                    <textarea id="medicineUsageInput" rows="2" placeholder="Usage notes"></textarea>
+                    <button type="button" class="btn btn-primary" id="addMedicineBtn">Add Medicine</button>
+                </div>
+                <div id="medicinesList" class="medicines-list"></div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-success">Save Disease</button>
+        </form>
+
+        <div id="formMessage" class="message-container"></div>
+    </div>
+
+    <script src="js/addDisease.js"></script>
+</body>
+</html>

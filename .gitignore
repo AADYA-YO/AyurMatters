@@ -1,0 +1,17 @@
+# ===============================
+# Ignore ALL env files everywhere
+# ===============================
+*.env
+
+# ===============================
+# Backend build + IDE
+# ===============================
+AyurMatters backend/target/
+AyurMatters backend/.idea/
+
+# Java compiled files
+*.class
+
+# OS
+.DS_Store
+Thumbs.db

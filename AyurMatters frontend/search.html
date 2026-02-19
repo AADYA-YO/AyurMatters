@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Disease - Ayur Matters</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <h1>Search Disease</h1>
+
+        <div class="search-container">
+            <!-- Search Type Selection -->
+            <div class="form-group">
+                <label>Search By:</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="searchType" value="disease" checked>
+                        Disease
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="searchType" value="symptom">
+                        Symptom
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="searchType" value="medicine">
+                        Medicine
+                    </label>
+                </div>
+            </div>
+
+            <!-- Search Input -->
+            <div class="form-group">
+                <label for="searchInput">Search Term:</label>
+                <input type="text" id="searchInput" placeholder="Enter search term...">
+            </div>
+
+            <!-- Search Button -->
+            <button type="button" class="btn btn-primary" id="searchBtn">Search</button>
+        </div>
+
+        <!-- Results Section -->
+        <div id="searchResults" class="results-container"></div>
+    </div>
+
+    <script src="js/search.js"></script>
+</body>
+</html>
